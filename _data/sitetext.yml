@@ -44,7 +44,7 @@ en: &DEFAULT_EN
     section: portfolio
 
     ambassadors:
-      - term: "Fall 2025 Ambassadors"
+      - term: "Fall 2025"
         names:
           - "Douglas Tranz"
           - "Prateek Reddy Etikyala"
@@ -56,14 +56,14 @@ en: &DEFAULT_EN
           - "Luke Beard"
           - "Mehek Hasnat"
 
-      - term: "Spring 2025 Ambassadors"
+      - term: "Spring 2025"
         names:
           - "Rakesh Vasa"
           - "Spencer Lee"
           - "Cory Lillis"
           - "Attanasia Garuso"
 
-      - term: "Fall 2024 Ambassadors"
+      - term: "Fall 2024"
         names:
           - "Sushanth Ambati"
           - "Sky Pelletier Waterpeace"
@@ -76,7 +76,7 @@ en: &DEFAULT_EN
           - "Drew Dillman"
           - "Manuel Dias"
 
-      - term: "Spring 2024 Ambassadors"
+      - term: "Spring 2024"
         names:
           - "Maryam M. Ahmed"
           - "Tarun T. Kairamkonda"
