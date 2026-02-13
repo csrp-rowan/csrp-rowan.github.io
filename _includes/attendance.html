@@ -1,0 +1,98 @@
+{% assign a = site.data.sitetext[site.locale].attendance %}
+
+<section class="page-section" id="{{ a.section | default: 'attendance' }}">
+  <div class="container">
+
+    <!-- Main section header -->
+    <div class="text-center mb-5 attend-header">
+      <h2 class="section-heading text-uppercase attend-title">
+        {{ a.title | default: "Attend Our Talks" }}
+      </h2>
+
+      {% if a.text %}
+        <div class="section-subheading text-muted attend-intro">
+          {{ a.text | markdownify }}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Two subsections -->
+    <div class="row align-items-stretch g-4 attend-grid">
+
+      <!-- LEFT: Attendance -->
+      <div class="col-lg-6">
+        <div class="att-card att-card-attendance">
+          <div class="att-card-top">
+            <h3 class="att-card-title">Attendance</h3>
+            <p class="att-card-desc">
+              Tap the button to check in, or scan the QR code during the talk.
+            </p>
+          </div>
+
+          {% if a.link_url %}
+            <a class="btn btn-primary btn-xl text-uppercase attendance-cta"
+               href="{{ a.link_url }}" target="_blank" rel="noopener">
+              Click here for attendance
+            </a>
+          {% endif %}
+
+          {% if a.qr_image %}
+            <div class="qr-row">
+              <div class="qr-box">
+                <img class="qr-img"
+                     src="{{ a.qr_image | relative_url }}"
+                     alt="Attendance QR Code">
+              </div>
+              <div class="qr-text">
+                <div class="qr-title">Scan to check in</div>
+                <div class="qr-sub">Use your phone camera. Works in seconds.</div>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- RIGHT: Time & Location -->
+      <div class="col-lg-6">
+        <div class="att-card att-card-where">
+          <div class="att-card-top">
+            <h3 class="att-card-title">Time &amp; Location</h3>
+            <p class="att-card-desc">
+              Weekly schedule and room details for in-person attendance.
+            </p>
+          </div>
+
+          <div class="att-meta">
+
+            {% if a.when %}
+              <div class="att-meta-row">
+                <div class="att-meta-k">When</div>
+                <div class="att-meta-v">{{ a.when }}</div>
+              </div>
+            {% endif %}
+
+            {% if a.where %}
+              <div class="att-meta-row">
+                <div class="att-meta-k">Where</div>
+                <div class="att-meta-v">{{ a.where }}</div>
+              </div>
+            {% endif %}
+
+            {% if a.calendar_url %}
+              <div class="att-meta-row">
+                <div class="att-meta-k">Add</div>
+                <div class="att-meta-v">
+                  <a href="{{ a.calendar_url }}" target="_blank" rel="noopener">
+                    Add to calendar
+                  </a>
+                </div>
+              </div>
+            {% endif %}
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

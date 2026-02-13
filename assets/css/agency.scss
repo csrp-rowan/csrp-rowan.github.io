@@ -1,0 +1,506 @@
+---
+---
+@charset "utf-8";
+// Core variables and mixins
+@import "base/variables.scss";
+@import "base/mixins.scss";
+
+// Custom Fonts
+{% if site.data.style.fonts %}
+  {% for font in site.data.style.fonts %}
+    @mixin {{font.for}}-font {
+      font-family: "{{ font.name }}", -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
+  {% endfor %}
+{% endif %}
+
+// Custom colors
+$primary: {{ site.data.style.highlight | default: "#2563EB" }} !default;
+$white: {{ site.data.style.white | default: "#fff" }} !default;
+$black: {{ site.data.style.black | default: "#000" }} !default;
+
+// Custom Images
+$header-image: "{{ site.data.style.header-image }}";
+$contact-image: "{{ site.data.style.contact-image }}";
+
+// Global CSS
+@import "base/page.scss";
+
+// Components
+@import "components/buttons.scss";
+@import "components/navbar.scss";
+@import "components/client-scroll.scss";
+
+// Layout
+@import "layout/masthead.scss";
+@import "layout/services.scss";
+@import "layout/portfolio.scss";
+@import "layout/timeline.scss";
+@import "layout/team.scss";
+@import "layout/contact.scss";
+@import "layout/footer.scss";
+
+/* =========================
+   CONTACT — smoother layout
+   ========================= */
+
+/* Slightly tighter section, better blend */
+#contact.page-section{
+  padding: 55px 0;
+  background-position: center 10px;
+  background-size: 900px auto;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+#contact.page-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(ellipse at center,
+    rgba(0,0,0,0.40),
+    rgba(0,0,0,0.88)
+  );
+  z-index:0;
+  pointer-events:none;
+}
+
+#contact.page-section .container{ position:relative; z-index:1; }
+
+/* Subtitle: bigger + white */
+#contact .section-subheading{
+  color: rgba(255,255,255,0.92) !important;
+  font-size: 1.18rem;
+  font-style: normal;
+  font-weight: 500;
+  margin: 10px auto 18px !important;
+  max-width: 960px;
+}
+
+/* Grid container for group cards (no outer panel look) */
+.csrp-contact-panel{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+/* 2 columns on desktop */
+@media (min-width: 992px){
+  .csrp-contact-panel{
+    grid-template-columns: 1fr 1.35fr; /* organizer/advisor left, bigger right card */
+    align-items: start;
+  }
+}
+
+/* Individual group card = the “panel” */
+.csrp-contact-group-card{
+  border-radius: 16px;
+  padding: 16px 16px;
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 18px 45px rgba(0,0,0,0.28);
+}
+
+/* Header */
+.csrp-contact-group-header{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.csrp-contact-icon{
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.95);
+}
+
+.csrp-contact-title{
+  margin: 0;
+  color: rgba(255,255,255,0.96);
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+/* Default list */
+.csrp-contact-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Each person “pill” */
+.csrp-contact-item{
+  padding: 12px 12px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+
+/* For Additional Faculty Contacts: make the people items a grid */
+.csrp-people-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+@media (min-width: 768px){
+  .csrp-people-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.csrp-contact-person{
+  color: rgba(255,255,255,0.92);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.csrp-contact-email{
+  color: rgba(255,215,0,0.95);
+  font-weight: 300;
+  text-decoration: none;
+}
+.csrp-contact-email:hover{
+  text-decoration: underline;
+}
+.csrp-contact-email i{ opacity: 0.9; }
+
+/* 4-up desktop grid looks best if card heights match */
+.ambassador-card{
+  height: 100%;
+  border-radius: 18px;
+  padding: 18px 18px 16px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.10);
+  overflow: hidden;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.ambassador-card:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 26px 60px rgba(0,0,0,0.14);
+}
+
+/* title */
+.ambassador-term{
+  margin: 0 0 12px;
+  font-weight: 900;
+  font-size: 1.15rem;
+  line-height: 1.15;
+}
+
+/* names: keep 2 columns inside each card, but adapt */
+.ambassador-list{
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 18px;
+}
+
+.ambassador-list li{
+  position: relative;
+  padding-left: 16px;
+  font-size: 0.96rem;
+  line-height: 1.25;
+}
+
+.ambassador-list li::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.52em;
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: rgba(255,200,0,0.95);
+  box-shadow: 0 0 0 3px rgba(255,200,0,0.18);
+}
+
+/* On smaller screens, avoid cramped 2-col name lists */
+@media (max-width: 768px){
+  .ambassador-list{
+    grid-template-columns: 1fr;
+  }
+}
+#portfolio .row{
+  row-gap: 14px;
+}
+/* Tighten the Ambassadors / portfolio section spacing */
+#portfolio.page-section{
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+#portfolio .section-heading{
+  margin-bottom: 10px;
+}
+
+#portfolio .section-subheading{
+  margin: 10px auto 26px !important;  /* smaller gap under subtitle */
+  max-width: 860px;
+}
+
+/* --- Timeline icons: center + scale --- */
+.timeline .timeline-image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Make the icon big and centered */
+.timeline .timeline-image i{
+  font-size: 56px;   /* try 52–64 */
+  line-height: 1;
+  color: #fff;
+  opacity: 0.98;
+  margin: 0;
+}
+
+/* If your circles are large, boost size on desktop */
+@media (min-width: 992px){
+  .timeline .timeline-image i{ font-size: 62px; }
+}
+
+/* Mobile */
+@media (max-width: 768px){
+  .timeline .timeline-image i{ font-size: 42px; }
+}
+/* shrink the timeline circles */
+.timeline > li .timeline-image{
+  width: 120px;
+  height: 120px;
+  margin-left: -60px;
+}
+
+@media (max-width: 768px){
+  .timeline > li .timeline-image{
+    width: 90px;
+    height: 90px;
+    margin-left: -45px;
+  }
+}
+
+/* Widen the text panels so titles wrap less */
+.timeline > li .timeline-panel{
+  width: 44%;              /* default is ~41% */
+  padding: 0 20px 20px;    /* tighten + make consistent */
+}
+
+/* On large screens, give even more width */
+@media (min-width: 1200px){
+  .timeline > li .timeline-panel{ width: 46%; }
+}
+
+/* Reduce the vertical gap between timeline items */
+.timeline > li{
+  margin-bottom: 60px;   /* default is often ~100px */
+}
+
+@media (max-width: 768px){
+  .timeline > li{ margin-bottom: 40px; }
+}
+/* Push panel slightly away from center line for breathing room */
+.timeline > li .timeline-panel{
+  padding-left: 25px;
+  padding-right: 25px;
+}
+.timeline > li .timeline-panel{
+  padding-left: 35px;
+  padding-right: 35px;
+}
+.timeline .timeline-heading h4{
+  margin-bottom: 6px;
+}
+
+.timeline .timeline-heading .subheading{
+  line-height: 1.25;   /* tighter wrap */
+  margin-bottom: 6px;
+}
+.timeline .timeline-heading .subheading{
+  max-width: 520px;     /* adjust 460–600 */
+  margin-left: auto;
+  margin-right: auto;
+  text-wrap: balance;   /* supported in modern browsers */
+}
+
+
+
+
+/* =========================
+   ATTENDANCE SECTION (NEW)
+   ========================= */
+
+#attendance.page-section{
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+/* Header */
+.attend-header{
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.attend-title{
+  letter-spacing: 0.5px;
+}
+
+.attend-intro{
+  max-width: 920px;
+  margin: 12px auto 0;
+  font-size: 1.06rem;
+  line-height: 1.65;
+}
+
+/* Card base */
+.att-card{
+  height: 100%;
+  border-radius: 18px;
+  padding: 26px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+  position: relative;
+}
+
+/* Subtle accent styling */
+.att-card-attendance{
+  border-top: 6px solid $primary;
+}
+
+.att-card-where{
+  background: #fbf3e3;
+  border-left: 8px solid $primary;
+}
+
+/* Card header inside */
+.att-card-top{
+  margin-bottom: 16px;
+}
+
+.att-card-title{
+  font-weight: 900;
+  font-size: 1.65rem;
+  margin: 0 0 8px 0;
+}
+
+.att-card-desc{
+  margin: 0;
+  color: rgba(0,0,0,0.55);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+/* CTA Button (Attendance) */
+.attendance-cta{
+  width: 100%;
+  border-radius: 14px;
+  padding: 18px 18px;
+  font-weight: 900;
+  letter-spacing: 0.6px;
+  margin: 6px 0 16px;
+}
+
+/* QR area: controlled size + aligned */
+.qr-row{
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.qr-box{
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 14px;
+  padding: 10px;
+  width: 165px;      /* makes it not huge */
+  flex: 0 0 165px;   /* prevents stretching */
+}
+
+.qr-img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.qr-title{
+  font-weight: 900;
+  font-size: 1.06rem;
+  margin-bottom: 4px;
+}
+
+.qr-sub{
+  color: rgba(0,0,0,0.60);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Time & Location rows */
+.att-meta{
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.att-meta-row{
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.att-meta-k{
+  font-weight: 900;
+  color: rgba(0,0,0,0.72);
+}
+
+.att-meta-v{
+  font-weight: 650;
+  line-height: 1.5;
+}
+
+/* Make links look good on the warm background */
+.att-card-where a{
+  color: $primary;
+  font-weight: 800;
+  text-decoration: none;
+}
+.att-card-where a:hover{
+  text-decoration: underline;
+}
+
+/* Mobile: stack QR nicely */
+@media (max-width: 768px){
+  .qr-row{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .qr-box{
+    width: 190px;
+    flex: 0 0 auto;
+  }
+}
+
+
+
