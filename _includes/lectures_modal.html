@@ -1,0 +1,50 @@
+<style>
+  /* “XL” modal for Bootstrap 4 */
+  @media (min-width: 992px) {
+    .modal-xl { max-width: 95vw; }
+  }
+  .lecture-embed {
+    width: 100%;
+    height: min(75vh, 720px);
+    border: 0;
+  }
+</style>
+
+<div class="modal fade" id="lectureModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header align-items-center">
+        <div>
+          <h5 class="modal-title mb-0" id="lectureModalTitle">Lecture</h5>
+          <small class="text-muted" id="lectureModalMeta"></small>
+        </div>
+
+        <div class="ml-auto d-flex align-items-center">
+          <a class="btn btn-sm btn-outline-primary mr-2" id="lectureOpenYoutube" href="#" target="_blank" rel="noopener">
+            Watch on YouTube
+          </a>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <iframe
+          id="lecturePlayer"
+          class="lecture-embed"
+          src=""
+          title="Lecture video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
+
+      <div class="modal-footer justify-content-between">
+        <button class="btn btn-outline-secondary" id="lecturePrev" type="button">← Prev</button>
+        <button class="btn btn-outline-secondary" id="lectureNext" type="button">Next →</button>
+      </div>
+
+    </div>
+  </div>
+</div>

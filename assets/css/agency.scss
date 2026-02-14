@@ -502,5 +502,17 @@ $contact-image: "{{ site.data.style.contact-image }}";
   }
 }
 
+#mainNav .navbar-nav .nav-link {
+  white-space: nowrap;
+}
+
+#mainNav .navbar-nav {
+  flex-wrap: nowrap;
+}
+
+#mainNav .navbar-nav { flex-wrap: nowrap; }
+#mainNav .nav-link { white-space: nowrap; }
+
+
 
 

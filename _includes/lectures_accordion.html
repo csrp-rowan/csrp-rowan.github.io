@@ -1,0 +1,75 @@
+<section class="page-section" id="lectures">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="section-heading text-uppercase">Previous Lectures</h2>
+      <h3 class="section-subheading text-muted">Watch talks from past semesters.</h3>
+    </div>
+
+    <div id="lecturesAccordion">
+
+      {% for block in site.data.lectures %}
+
+      <div class="card mb-3">
+        <div class="card-header" id="heading-{{ block.id }}">
+          <h5 class="mb-0">
+            <button class="btn btn-link text-left w-100 collapsed"
+                    data-toggle="collapse"
+                    data-target="#collapse-{{ block.id }}"
+                    aria-expanded="false"
+                    aria-controls="collapse-{{ block.id }}">
+              <span style="font-weight:700;">{{ block.term }}</span>
+              <span class="text-muted" style="float:right;">Click to expand</span>
+            </button>
+          </h5>
+        </div>
+
+        <div id="collapse-{{ block.id }}" class="collapse"
+             aria-labelledby="heading-{{ block.id }}"
+             data-parent="#lecturesAccordion">
+          <div class="card-body">
+
+            <div class="row">
+              {% for v in block.items %}
+              <div class="col-12 col-md-6 col-lg-4 mb-4">
+
+                <div class="card h-100 shadow-sm lecture-card"
+                     role="button"
+                     style="cursor:pointer;"
+                     data-youtube-id="{{ v.youtube_id }}"
+                     data-title="{{ v.title | escape }}">
+
+                  <img class="card-img-top"
+                       src="https://img.youtube.com/vi/{{ v.youtube_id }}/hqdefault.jpg"
+                       alt="{{ v.title | escape }}">
+
+                  <div class="card-body">
+                    <h6 class="card-title mb-2">{{ v.title }}</h6>
+
+                    {% if v.speaker %}
+                    <div class="small text-muted"><strong>Speaker:</strong> {{ v.speaker }}</div>
+                    {% endif %}
+
+                    {% if v.date %}
+                    <div class="small text-muted"><strong>Date:</strong> {{ v.date }}</div>
+                    {% endif %}
+                  </div>
+
+                  <div class="card-footer bg-transparent border-0 pt-0">
+                    <span class="btn btn-sm btn-primary">Watch</span>
+                  </div>
+
+                </div>
+
+              </div>
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
