@@ -25,7 +25,7 @@ en: &DEFAULT_EN
     - title: "Contact"
       section: contact
     - title: "Apply to Present"
-      url: "https://forms.gle/9ZsH2n1h7mLZt3iE6"
+      url: "https://docs.google.com/forms/d/e/1FAIpQLScdpRtNWDrV8qaFg8ORninNSxiH8TdwmUmC_yrsELZsfmrx_A/viewform"
 
   services:
     title: "Events"
@@ -103,7 +103,7 @@ en: &DEFAULT_EN
         icon: "fas fa-shield-alt"
         color: "#111827"
       - year: "Feb 20, 2026"
-        title: "TBA"
+        title: "Measuring NIST Authentication Standards Compliance by Higher Education Institutions"
         desc: "**Presenter:** Doug Tranz"
         icon: "fas fa-microphone"
         color: "#F59E0B"
@@ -133,13 +133,13 @@ en: &DEFAULT_EN
         icon: "fas fa-microphone"
         color: "#F59E0B"
       - year: "Apr 3, 2026"
-        title: "TBA"
-        desc: "**Presenter:** Ashley Gonzales"
+        title: "Change Point Detection in Evolving Graph using Martingale"
+        desc: "**Presenter:** Tarun Teja"
         icon: "fas fa-microphone"
         color: "#F59E0B"
       - year: "Apr 10, 2026"
-        title: "TBA"
-        desc: "**Presenter:** Kellianyz Santos"
+        title: "Bound-Tightened Densest Subgraph Discovery on GPU"
+        desc: "**Presenter:** Wajid Manzoor"
         icon: "fas fa-microphone"
         color: "#F59E0B"
       - year: "Apr 17, 2026"
@@ -186,7 +186,7 @@ en: &DEFAULT_EN
     people:
       - name: "Dr. Nikolay Ivanov"
         role: "Faculty Advisor"
-        image: /assets/img/team/500x500.jpg
+        image: /assets/img/team/nick.jpeg
         social:
           - url: "https://csm.rowan.edu/departments/cs/facultystaff/compsci_full_part/ivanov.html"
             icon: "fas fa-university"
@@ -196,7 +196,7 @@ en: &DEFAULT_EN
             icon: "fab fa-linkedin-in"
       - name: "Wajid Manzoor"
         role: "Student Organizer"
-        image: /assets/img/team/2.jpg
+        image: /assets/img/team/wajid.jpeg
         social:
           - url: "https://csm.rowan.edu"
             icon: "fas fa-university"
@@ -204,20 +204,20 @@ en: &DEFAULT_EN
             icon: "fab fa-github"
           - url: "https://www.linkedin.com/in/wajid-manzoor/"
             icon: "fab fa-linkedin-in"
-      - name: "Vinay K M"
+      - name: "Vinay Kumar Uppalapati"
         role: "Student Organizer"
-        image: /assets/img/team/500x500.jpg
+        image: /assets/img/team/vinay.png
         social:
           - url: "https://csm.rowan.edu"
             icon: "fas fa-university"
-          - url: "https://github.com/vinaykm"
+          - url: ""
             icon: "fab fa-github"
-          - url: "https://www.linkedin.com/in/vinay-k-m/"
+          - url: "https://www.linkedin.com/in/vinay-kumar-uppalapati-1b528a1bb/"
             icon: "fab fa-linkedin-in"
 
   attendance:
     title: "Attend Our Talks"
-    text: "Join us Fridays at 3:30 PM in the CS Department’s Robinson Hall (302) for our weekly talks and discussions. We also post recordings on our YouTube channel."
+    text: "Join us Fridays at 3:30 PM in the CS Department’s Robinson Hall (302) for our weekly talks and discussions."
     section: attendance
     link_label: "Attendance Link"
     link_url: "https://go.rowan.edu/csrp-att"

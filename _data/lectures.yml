@@ -1,19 +1,7 @@
-- term: "Fall 2024"
-  id: "fall-2024"
+- term: "Fall 2025"
+  id: "fall-2025"
   items:
-    - title: "Lecture 01: Intro"
-      speaker: "Dr. Nick Ivanov"
-      date: "2024-09-06"
-      youtube_id: "CJGQndLCYGw"
-    - title: "Lecture 02: Topic Name"
-      speaker: "Guest Speaker"
-      date: "2024-09-13"
-      youtube_id: "2dwQUUDt5Is"
 
-- term: "Spring 2025"
-  id: "spring-2025"
+- term: "Spring 2026"
+  id: "spring-2026"
   items:
-    - title: "Lecture 01: Something"
-      speaker: "Someone"
-      date: "2025-01-31"
-      youtube_id: "VIDEO_ID_HERE"

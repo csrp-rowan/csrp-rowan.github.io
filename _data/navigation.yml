@@ -31,7 +31,7 @@ en: &DEFAULT_EN
     - title: "Contact"
       section: contact
     - title: "Apply to Present"
-      url: https://forms.gle/9ZsH2n1h7mLZt3iE6
+      url: https://docs.google.com/forms/d/e/1FAIpQLScdpRtNWDrV8qaFg8ORninNSxiH8TdwmUmC_yrsELZsfmrx_A/viewform
 
 en-001:
   <<: *DEFAULT_EN
