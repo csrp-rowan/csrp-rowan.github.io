@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rowan ACM CSPR</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,wght@0,900;1,700;1,900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: #111;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.poster {
+  width: 794px;
+  height: 1123px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 50px 120px rgba(0,0,0,0.7);
+  background: #f2ede4;
+}
+
+/* ── MASSIVE BG LETTERS ── */
+.bg-text {
+  position: absolute;
+  top: -30px;
+  left: -20px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 320px;
+  line-height: 0.85;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(0,0,0,0.06);
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  letter-spacing: -5px;
+}
+
+/* ── INK SPLASH — left full-height block ── */
+.ink-block {
+  position: absolute;
+  top: 0; left: 0;
+  width: 340px;
+  height: 100%;
+  background: #0d1117;
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  z-index: 1;
+}
+
+/* ── CORAL ACCENT SLAB ── */
+.coral-slab {
+  position: absolute;
+  top: 0; left: 0;
+  width: 340px;
+  height: 8px;
+  background: #e8503a;
+  z-index: 3;
+}
+
+/* ── GOLD STRIPE ── */
+.gold-stripe {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 340px;
+  height: 5px;
+  background: linear-gradient(90deg, #f0b429, #e8503a);
+  clip-path: polygon(0 0, 82% 0, 100% 100%, 0 100%);
+  z-index: 3;
+}
+
+/* ── BOTTOM FOOTER BAR ── */
+.footer-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #e8503a, #f0b429, #0ea5a0, #e8503a);
+  z-index: 5;
+}
+
+/* ── LEFT COLUMN ── */
+.left-col {
+  position: absolute;
+  top: 0; left: 0;
+  width: 320px;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 42px 32px 40px;
+}
+
+.org-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 48px;
+}
+
+.left-main-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 96px;
+  line-height: 0.88;
+  color: white;
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+
+.left-main-title .coral { color: #e8503a; }
+
+.left-italic {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 700;
+  color: #f0b429;
+  line-height: 1.1;
+  margin-top: 10px;
+  margin-bottom: 32px;
+}
+
+.divider-short {
+  width: 40px; height: 2px;
+  background: rgba(255,255,255,0.2);
+  margin-bottom: 28px;
+}
+
+.left-body {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.75;
+  font-weight: 300;
+  flex: 1;
+}
+
+.left-body strong {
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+}
+
+/* meeting info */
+.meeting-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 36px;
+}
+
+.meet-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.meet-icon {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+}
+
+.meet-main {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  color: white;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.meet-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.38);
+  margin-top: 1px;
+}
+
+/* qr */
+.qr-area {
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.qr-wrap {
+  width: 78px; height: 78px;
+  background: white;
+  border-radius: 8px;
+  padding: 6px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px #e8503a;
+}
+
+#qrcode canvas, #qrcode img { display: block; border-radius: 3px; }
+
+.qr-text { }
+.qr-scan {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 4px;
+}
+.qr-url {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+}
+
+/* ── RIGHT COLUMN ── */
+.right-col {
+  position: absolute;
+  top: 0;
+  left: 340px;
+  right: 0;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 44px 36px 40px 44px;
+}
+
+/* ── HERO BIG QUOTE ── */
+.big-quote {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 52px;
+  font-weight: 900;
+  color: #0d1117;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-top: 10px;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.big-quote .underline-word {
+  position: relative;
+  display: inline;
+  white-space: nowrap;
+}
+
+.big-quote .underline-word::after {
+  content: '';
+  position: absolute;
+  bottom: 2px; left: 0; right: 0;
+  height: 4px;
+  background: #e8503a;
+  border-radius: 2px;
+}
+
+.right-body {
+  font-size: 13px;
+  color: #5a6478;
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 32px;
+  max-width: 340px;
+}
+
+.right-body strong { color: #0d1117; font-weight: 600; }
+
+/* ── AMBASSADOR CARD ── */
+.ambassador-card {
+  background: #0d1117;
+  border-radius: 10px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.ambassador-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #f0b429, #e8503a);
+}
+
+.amb-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #f0b429;
+  margin-bottom: 10px;
+}
+
+.amb-main {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: white;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.amb-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.amb-step {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 6px;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.amb-step-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: #f0b429;
+  line-height: 1;
+}
+
+.amb-step-label {
+  font-size: 9.5px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.3;
+  margin-top: 3px;
+}
+
+.amb-arrow {
+  color: rgba(255,255,255,0.2);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.amb-final {
+  background: linear-gradient(135deg, rgba(240,180,41,0.15), rgba(232,80,58,0.15));
+  border-color: rgba(240,180,41,0.3);
+}
+
+.amb-final .amb-step-num { color: #f0b429; font-size: 20px; }
+.amb-final .amb-step-label { color: rgba(255,255,255,0.65); }
+
+/* ── PILL TAGS ── */
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: white;
+  border: 1.5px solid #e8e3d9;
+  border-radius: 100px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #0d1117;
+}
+
+.pill-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #e8503a;
+}
+
+.pill.teal .pill-dot  { background: #0ea5a0; }
+.pill.gold .pill-dot  { background: #f0b429; }
+.pill.purp .pill-dot  { background: #a78bfa; }
+
+/* ── BOTTOM CORAL CTA ── */
+.cta-strip {
+  background: #e8503a;
+  border-radius: 8px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.cta-left {}
+.cta-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 4px;
+}
+.cta-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  color: white;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.cta-badge {
+  background: white;
+  color: #e8503a;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  padding: 10px 18px;
+  border-radius: 5px;
+  white-space: nowrap;
+}
+
+/* ── BIG DECORATIVE NUMBER ── */
+.deco-num {
+  position: absolute;
+  bottom: 80px;
+  right: 30px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 180px;
+  color: rgba(0,0,0,0.04);
+  line-height: 1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media print {
+  body { background: none; padding: 0; }
+  .poster { box-shadow: none; width: 210mm; height: 297mm; }
+}
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- Background ghost text -->
+  <div class="bg-text">ACM<br>CSPR</div>
+  <div class="deco-num">24</div>
+
+  <!-- Dark left block -->
+  <div class="ink-block"></div>
+  <div class="coral-slab"></div>
+  <div class="gold-stripe"></div>
+
+  <!-- LEFT COLUMN -->
+  <div class="left-col">
+    <div class="org-tag">Rowan University · ACM CSPR</div>
+
+    <div class="left-main-title">
+      ACM<br>
+      <span class="coral">CSPR</span>
+    </div>
+    <div class="left-italic">Computer Science<br>Presentation Series</div>
+
+    <div class="divider-short"></div>
+
+    <div class="left-body">
+      A weekly stage for <strong>every student</strong> to share what they're building, reading, and discovering in computer science.
+      <br><br>
+      No experience needed. Just <strong>curiosity</strong>.
+    </div>
+
+    <div class="meeting-stack">
+      <div class="meet-row">
+        <div class="meet-icon">📍</div>
+        <div>
+          <div class="meet-main">Room 302</div>
+          <div class="meet-sub">Robinson Hall</div>
+        </div>
+      </div>
+      <div class="meet-row">
+        <div class="meet-icon">🗓</div>
+        <div>
+          <div class="meet-main">Every Friday</div>
+          <div class="meet-sub">3:00 – 4:00 PM</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-area">
+      <div class="qr-wrap">
+        <div id="qrcode"></div>
+      </div>
+      <div class="qr-text">
+        <div class="qr-scan">Scan to Visit</div>
+        <div class="qr-url">csrp-rowan.github.io</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN -->
+  <div class="right-col">
+
+    <div class="big-quote">
+      Where ideas<br>find their<br><span class="underline-word">spotlight.</span>
+    </div>
+
+    <p class="right-body">
+      Present your work. Hear cutting-edge research. Build real connections with faculty and peers. <strong>Every Friday is a new opportunity</strong> to grow as a researcher and thinker.
+    </p>
+
+    <!-- PILLS -->
+    <div class="pill-row">
+      <div class="pill"><div class="pill-dot"></div>Faculty Talks</div>
+      <div class="pill teal"><div class="pill-dot"></div>Student Presentations</div>
+      <div class="pill gold"><div class="pill-dot"></div>Workshops</div>
+      <div class="pill purp"><div class="pill-dot"></div>Paper Discussions</div>
+    </div>
+
+    <!-- AMBASSADOR CARD -->
+    <div class="ambassador-card">
+      <div class="amb-label">🏅 Research Ambassador Program</div>
+      <div class="amb-main">Present Once. Attend 8 Talks. Earn Your Certificate.</div>
+      <div class="amb-steps">
+        <div class="amb-step">
+          <div class="amb-step-num">1×</div>
+          <div class="amb-step-label">Present your<br>research</div>
+        </div>
+        <div class="amb-arrow">+</div>
+        <div class="amb-step">
+          <div class="amb-step-num">8×</div>
+          <div class="amb-step-label">Attend<br>talks</div>
+        </div>
+        <div class="amb-arrow">=</div>
+        <div class="amb-step amb-final">
+          <div class="amb-step-num">🎓</div>
+          <div class="amb-step-label">Research<br>Ambassador</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA STRIP -->
+    <div class="cta-strip">
+      <div class="cta-left">
+        <div class="cta-eyebrow">Free &amp; Open to All Students</div>
+        <div class="cta-text">Your first talk is this Friday</div>
+      </div>
+      <div class="cta-badge">JOIN US →</div>
+    </div>
+
+  </div>
+
+  <div class="footer-bar"></div>
+</div>
+
+<script>
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://csrp-rowan.github.io",
+    width: 66,
+    height: 66,
+    colorDark: "#0d1117",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+</body>
+</html>

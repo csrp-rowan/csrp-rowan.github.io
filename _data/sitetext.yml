@@ -44,7 +44,7 @@ en: &DEFAULT_EN
 
   portfolio:
     title: "Research Ambassadors"
-    text: "Step into the spotlight once, join us for 8 more talks, and graduate the semester as a Research Ambassador, with a certificate to celebrate your research engagement."
+    text: "Step into the spotlight once, join us for 8 more talks and present once, and graduate the semester as a Research Ambassador, with a certificate to celebrate your research engagement."
     section: portfolio
     ambassadors:
       - term: "Fall 2025"
@@ -222,7 +222,7 @@ en: &DEFAULT_EN
     link_label: "Attendance Link"
     link_url: "https://go.rowan.edu/csrp-att"
     qr_image: /assets/img/qr.png
-    when: "Fridays at 3:30 PM – 4:30 PM (Spring 2026)"
+    when: "Fridays at 3:00 PM – 4:00 PM (Spring 2026)"
     where: "Robinson Hall (302), Rowan University, Glassboro Campus"
 
   contact:

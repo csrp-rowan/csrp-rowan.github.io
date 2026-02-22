@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rowan ACM CSPR – Computer Science Presentation Series</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink: #0d1117;
+  --cream: #f5f0e8;
+  --coral: #e8503a;
+  --coral-bright: #ff6b52;
+  --gold: #e8b84b;
+  --slate: #2a3545;
+  --steel: #4a5568;
+  --fog: #ddd8cf;
+  --white: #ffffff;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background: #c8c2b8;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* A4 = 210mm × 297mm; at 96dpi ≈ 794px × 1123px */
+.poster {
+  width: 794px;
+  min-height: 1123px;
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+}
+
+/* ───── BACKGROUND GEOMETRY ───── */
+.bg-geo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-circle-1 {
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 480px; height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #e8503a22 0%, transparent 70%);
+}
+
+.bg-circle-2 {
+  position: absolute;
+  bottom: 60px; left: -80px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #e8b84b18 0%, transparent 70%);
+}
+
+.bg-stripe {
+  position: absolute;
+  top: 0; right: 0;
+  width: 260px;
+  height: 100%;
+  background: var(--ink);
+}
+
+.bg-stripe-diagonal {
+  position: absolute;
+  top: 0; right: 260px;
+  width: 0; height: 0;
+  border-top: 1123px solid var(--ink);
+  border-left: 50px solid transparent;
+}
+
+.bg-stripe-accent {
+  position: absolute;
+  top: 0; right: 0;
+  width: 260px;
+  height: 6px;
+  background: var(--coral);
+  z-index: 2;
+}
+
+/* ───── LAYOUT ───── */
+.poster-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 1123px;
+}
+
+/* ───── TOP BAR ───── */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px 36px 0;
+}
+
+.top-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--steel);
+  text-transform: uppercase;
+}
+
+.top-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.top-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--fog);
+}
+.top-dot:first-child { background: var(--coral); width: 10px; height: 10px; }
+
+/* ───── HERO ───── */
+.hero {
+  padding: 32px 36px 0;
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 0;
+}
+
+.hero-left { padding-right: 20px; }
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.kicker-line {
+  width: 32px; height: 2px;
+  background: var(--coral);
+}
+
+.kicker-text {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--coral);
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 100px;
+  line-height: 0.92;
+  color: var(--ink);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.hero-title .acm {
+  color: var(--coral);
+  display: block;
+}
+
+.hero-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: var(--slate);
+  font-weight: 700;
+  margin-bottom: 22px;
+  line-height: 1.3;
+}
+
+.hero-desc {
+  font-size: 14px;
+  color: var(--steel);
+  line-height: 1.7;
+  max-width: 340px;
+  font-weight: 300;
+}
+
+.hero-desc strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ───── HERO RIGHT (dark stripe content) ───── */
+.hero-right {
+  padding: 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background: transparent;
+}
+
+.stripe-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: rgba(255,255,255,0.5);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.meeting-info {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.meeting-block {
+  border-left: 3px solid var(--coral);
+  padding-left: 14px;
+}
+
+.meeting-block-icon {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.meeting-block-main {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: #ffffff;
+  letter-spacing: 1px;
+  line-height: 1;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+.meeting-block-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 3px;
+  font-weight: 400;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Gold badge */
+.gold-badge {
+  background: var(--gold);
+  color: var(--ink);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+/* ───── DIVIDER ───── */
+.divider {
+  padding: 30px 36px 0;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.divider-line { flex: 1; height: 1px; background: var(--fog); }
+.divider-diamond {
+  width: 8px; height: 8px;
+  background: var(--coral);
+  transform: rotate(45deg);
+}
+.divider-text {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--steel);
+  text-transform: uppercase;
+}
+
+/* ───── PROGRAMS GRID ───── */
+.programs {
+  padding: 24px 36px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.program-card {
+  background: var(--white);
+  border-radius: 4px;
+  padding: 22px 20px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--fog);
+  transition: all 0.25s;
+}
+
+.program-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--fog);
+  transition: background 0.25s;
+}
+
+.program-card:hover::before { background: var(--coral); }
+.program-card:hover { border-color: #e0dbd3; box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+.program-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  color: var(--fog);
+  line-height: 1;
+  margin-bottom: 8px;
+  transition: color 0.25s;
+}
+
+.program-card:hover .program-num { color: #e8503a22; }
+
+.program-icon {
+  position: absolute;
+  top: 20px; right: 20px;
+  font-size: 28px;
+  opacity: 0.7;
+}
+
+.program-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.program-desc {
+  font-size: 12.5px;
+  color: var(--steel);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ───── BOTTOM SECTION ───── */
+.bottom {
+  padding: 0 36px 36px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 28px;
+  align-items: end;
+}
+
+.bottom-left { display: flex; flex-direction: column; gap: 14px; }
+
+.cta-box {
+  background: var(--ink);
+  border-radius: 4px;
+  padding: 24px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 120px; height: 120px;
+  background: var(--coral);
+  opacity: 0.12;
+  border-radius: 50%;
+  transform: translate(40px, -40px);
+}
+
+.cta-pre {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--coral);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.cta-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 38px;
+  color: white;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.cta-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.5);
+  font-weight: 300;
+}
+
+.website-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: white;
+  border: 1.5px solid var(--fog);
+  border-radius: 4px;
+}
+
+.website-globe { font-size: 16px; color: var(--coral); }
+
+.website-url {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.2px;
+  flex: 1;
+}
+
+.website-arrow {
+  width: 28px; height: 28px;
+  background: var(--coral);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 13px;
+}
+
+.features {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.feature-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--steel);
+  font-weight: 400;
+}
+
+.feature-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--coral);
+  flex-shrink: 0;
+}
+
+/* ───── QR BLOCK ───── */
+.qr-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.qr-frame {
+  width: 140px; height: 140px;
+  background: var(--ink);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  position: relative;
+}
+
+.qr-frame::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--coral), var(--gold));
+  z-index: -1;
+}
+
+#qrcode canvas, #qrcode img {
+  border-radius: 4px;
+  display: block;
+}
+
+.scan-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--steel);
+  text-align: center;
+}
+
+/* ───── FOOTER BAR ───── */
+.footer-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, var(--coral) 0%, var(--gold) 60%, var(--coral) 100%);
+}
+
+/* ───── DECORATIVE ELEMENTS ───── */
+.deco-cross {
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 200px;
+  color: rgba(0,0,0,0.03);
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.deco-1 { bottom: 200px; left: -20px; }
+
+.stamp {
+  position: absolute;
+  top: 200px;
+  left: 36px;
+  width: 60px; height: 60px;
+  border: 2px solid var(--coral);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-15deg);
+  opacity: 0.6;
+}
+
+.stamp-inner {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: var(--coral);
+  text-align: center;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+/* horizontal rule inside dark stripe */
+.stripe-hr {
+  width: 40px;
+  height: 1px;
+  background: rgba(255,255,255,0.15);
+  margin: 4px 0;
+}
+
+/* ───── PRINT STYLES ───── */
+@media print {
+  body { background: none; padding: 0; }
+  .poster { box-shadow: none; width: 210mm; min-height: 297mm; }
+}
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- Background geometry -->
+  <div class="bg-geo">
+    <div class="bg-circle-1"></div>
+    <div class="bg-circle-2"></div>
+    <div class="bg-stripe"></div>
+    <div class="bg-stripe-diagonal"></div>
+    <div class="bg-stripe-accent"></div>
+  </div>
+
+  <!-- Decorative -->
+  <div class="deco-cross deco-1">+</div>
+
+  <div class="poster-inner">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <div class="top-label">Rowan University · ACM CSPR</div>
+      <div class="top-dots">
+        <div class="top-dot"></div>
+        <div class="top-dot"></div>
+        <div class="top-dot"></div>
+        <div class="top-dot"></div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div style="padding-top: 16px;">
+      <div class="hero">
+        <div class="hero-left">
+          <div class="kicker">
+            <div class="kicker-line"></div>
+            <div class="kicker-text">Computer Science Presentation Series</div>
+          </div>
+          <div class="hero-title">
+            ACM
+            <span class="acm">CSPR</span>
+          </div>
+          <div class="hero-subtitle">Rowan University</div>
+          <p class="hero-desc">
+            A space where <strong>curiosity becomes discovery.</strong> We bring together students and faculty to explore cutting-edge research, share published work, and build the next generation of researchers at Rowan University.
+          </p>
+        </div>
+
+        <div class="hero-right">
+          <div style="margin-top: 60px;">
+            <div class="stripe-label">When &amp; Where</div>
+            <div class="meeting-info">
+              <div class="meeting-block">
+                <div class="meeting-block-icon">📍</div>
+                <div class="meeting-block-main">Room 302</div>
+                <div class="meeting-block-sub">Robinson Hall</div>
+              </div>
+              <div class="stripe-hr"></div>
+              <div class="meeting-block">
+                <div class="meeting-block-icon">🗓</div>
+                <div class="meeting-block-main">Every Friday</div>
+                <div class="meeting-block-sub">3:00 – 4:00 PM</div>
+              </div>
+            </div>
+            <div style="margin-top: 24px;">
+              <div class="gold-badge">Free &amp; Open to All</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DIVIDER -->
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-diamond"></div>
+        <div class="divider-text">What We Do</div>
+        <div class="divider-diamond"></div>
+        <div class="divider-line"></div>
+      </div>
+
+      <!-- PROGRAMS -->
+      <div class="programs">
+        <div class="program-card">
+          <div class="program-num">01</div>
+          <div class="program-icon">🚀</div>
+          <div class="program-title">Faculty Research Talks</div>
+          <p class="program-desc">Faculty members present their latest research, published papers, and ongoing work across computer science disciplines.</p>
+        </div>
+        <div class="program-card">
+          <div class="program-num">02</div>
+          <div class="program-icon">⭐</div>
+          <div class="program-title">Student Research Talks</div>
+          <p class="program-desc">PhD, graduate, and undergraduate students share their own research in a supportive, collaborative environment.</p>
+        </div>
+        <div class="program-card">
+          <div class="program-num">03</div>
+          <div class="program-icon">🛠</div>
+          <div class="program-title">Workshops</div>
+          <p class="program-desc">Hands-on sessions covering Data Analysis, Machine Learning, and the latest tools shaping the field today.</p>
+        </div>
+        <div class="program-card">
+          <div class="program-num">04</div>
+          <div class="program-icon">🧠</div>
+          <div class="program-title">Paper Discussions</div>
+          <p class="program-desc">Dive deep into influential research papers. We read, question, debate, and extract ideas that matter.</p>
+        </div>
+      </div>
+
+      <!-- BOTTOM -->
+      <div class="bottom">
+        <div class="bottom-left">
+          <div class="cta-box">
+            <div class="cta-pre">Ready to explore?</div>
+            <div class="cta-title">Join ACM CSPR</div>
+            <div class="cta-sub">No experience required — just bring your curiosity.</div>
+          </div>
+
+          <div class="website-row">
+            <span class="website-globe">🌐</span>
+            <span class="website-url">csrp-rowan.github.io</span>
+            <div class="website-arrow">→</div>
+          </div>
+
+          <div class="features">
+            <div class="feature-pill"><div class="feature-dot"></div>Latest updates &amp; announcements</div>
+            <div class="feature-pill"><div class="feature-dot"></div>Event schedules &amp; resources</div>
+            <div class="feature-pill"><div class="feature-dot"></div>Connect with the team</div>
+          </div>
+        </div>
+
+        <div class="qr-block">
+          <div class="qr-frame">
+            <div id="qrcode"></div>
+          </div>
+          <div class="scan-label">Scan to Visit</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer bar -->
+  <div class="footer-bar"></div>
+</div>
+
+<script>
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://csrp-rowan.github.io",
+    width: 120,
+    height: 120,
+    colorDark: "#ffffff",
+    colorLight: "#0d1117",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+</body>
+</html>
