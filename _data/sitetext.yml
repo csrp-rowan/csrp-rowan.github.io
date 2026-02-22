@@ -217,7 +217,7 @@ en: &DEFAULT_EN
 
   attendance:
     title: "Attend Our Talks"
-    text: "Join us Fridays at 3:30 PM in the CS Department’s Robinson Hall (302) for our weekly talks and discussions."
+    text: "Join us Fridays at 3:00 PM in the CS Department’s Robinson Hall (302) for our weekly talks and discussions."
     section: attendance
     link_label: "Attendance Link"
     link_url: "https://go.rowan.edu/csrp-att"
