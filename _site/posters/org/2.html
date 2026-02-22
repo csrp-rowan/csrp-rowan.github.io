@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rowan ACM CSPR – Join Us</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:ital,wght@0,700;0,900;1,700;1,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ink:    #0b0f1a;
+  --navy:   #111827;
+  --coral:  #e8503a;
+  --gold:   #f0b429;
+  --gold-lt:#fde68a;
+  --teal:   #0ea5a0;
+  --cream:  #faf7f2;
+  --fog:    #e8e3d9;
+  --steel:  #5a6478;
+  --white:  #ffffff;
+}
+
+html, body {
+  background: #1a1f2e;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+}
+
+/* ── A4 POSTER ── */
+.poster {
+  width: 794px;
+  min-height: 1123px;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+}
+
+/* ── BG TEXTURE ── */
+.poster::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 10%, rgba(232,80,58,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 10% 80%, rgba(14,165,160,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(240,180,41,0.06) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── GRID LINES DECO ── */
+.grid-deco {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── CONTENT ── */
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── TOP STRIP ── */
+.top-strip {
+  background: var(--coral);
+  padding: 10px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.top-strip-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: white;
+}
+
+.top-strip-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.top-strip-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+}
+.top-strip-dot:last-child { background: white; }
+
+/* ── HERO ── */
+.hero {
+  padding: 44px 36px 0;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.eyebrow-line { width: 28px; height: 2px; background: var(--gold); }
+.eyebrow-text {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 88px;
+  line-height: 0.88;
+  color: var(--white);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.hero-title .highlight {
+  color: var(--coral);
+  display: block;
+}
+
+.hero-title .sub-line {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: 38px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0;
+  display: block;
+  line-height: 1.1;
+  margin-top: 6px;
+}
+
+.hero-tagline {
+  font-size: 15px;
+  color: rgba(255,255,255,0.55);
+  font-weight: 300;
+  margin-top: 16px;
+  line-height: 1.6;
+  max-width: 520px;
+}
+
+/* ── SPOTLIGHT BANNER ── */
+.spotlight-banner {
+  margin: 32px 36px 0;
+  background: linear-gradient(135deg, var(--gold) 0%, #f97316 100%);
+  border-radius: 6px;
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-banner::before {
+  content: '★';
+  position: absolute;
+  right: 20px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 80px;
+  color: rgba(255,255,255,0.12);
+  line-height: 1;
+}
+
+.spotlight-icon {
+  font-size: 36px;
+  flex-shrink: 0;
+}
+
+.spotlight-text { flex: 1; }
+
+.spotlight-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: var(--ink);
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.spotlight-body {
+  font-size: 13px;
+  color: rgba(0,0,0,0.7);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.spotlight-badge {
+  background: var(--ink);
+  color: var(--gold);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  padding: 8px 14px;
+  border-radius: 4px;
+  flex-shrink: 0;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* ── SECTION LABEL ── */
+.section-label {
+  padding: 28px 36px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label-line { flex: 1; height: 1px; background: rgba(255,255,255,0.08); }
+.section-label-text {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ── BENEFITS GRID ── */
+.benefits {
+  padding: 0 36px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+
+.benefit-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 20px 18px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+
+.benefit-card:hover { border-color: rgba(232,80,58,0.4); }
+
+.benefit-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--accent-color, var(--coral));
+  opacity: 0.6;
+}
+
+.benefit-card.gold   { --accent-color: var(--gold); }
+.benefit-card.teal   { --accent-color: var(--teal); }
+.benefit-card.coral  { --accent-color: var(--coral); }
+.benefit-card.white  { --accent-color: rgba(255,255,255,0.4); }
+.benefit-card.purple { --accent-color: #a78bfa; }
+
+.benefit-emoji { font-size: 26px; margin-bottom: 10px; display: block; }
+
+.benefit-title {
+  font-family: 'Fraunces', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 7px;
+  line-height: 1.2;
+}
+
+.benefit-desc {
+  font-size: 11.5px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ── AMBASSADOR PATH ── */
+.ambassador {
+  margin: 28px 36px 0;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(240,180,41,0.25);
+  border-radius: 8px;
+  padding: 24px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.ambassador::before {
+  content: 'AMBASSADOR';
+  position: absolute;
+  right: -10px; top: 12px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: rgba(240,180,41,0.06);
+  letter-spacing: 2px;
+  pointer-events: none;
+}
+
+.ambassador-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.ambassador-icon {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--gold), #f97316);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.ambassador-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  color: var(--gold);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.ambassador-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 2px;
+}
+
+.steps {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.step:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.2);
+  font-size: 16px;
+}
+
+.step-num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 15px;
+  color: var(--gold);
+  margin: 0 auto 8px;
+}
+
+.step-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.step-sub {
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.4;
+}
+
+.step-final .step-num {
+  background: linear-gradient(135deg, var(--gold), #f97316);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+/* ── WHAT YOU'LL GAIN ── */
+.gain-strip {
+  margin: 28px 36px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.gain-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+
+.gain-check {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(14,165,160,0.15);
+  border: 1px solid var(--teal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--teal);
+  font-size: 11px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.gain-text {
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.gain-text strong {
+  color: white;
+  font-weight: 600;
+  display: block;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+
+/* ── BOTTOM ROW ── */
+.bottom-row {
+  margin: 28px 36px 0;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: end;
+  padding-bottom: 36px;
+}
+
+.bottom-left { display: flex; flex-direction: column; gap: 12px; }
+
+/* Meeting info inline */
+.meeting-inline {
+  display: flex;
+  gap: 12px;
+}
+
+.meeting-chip {
+  flex: 1;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.meeting-chip-icon { font-size: 18px; }
+
+.meeting-chip-main {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  color: white;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+
+.meeting-chip-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  margin-top: 2px;
+}
+
+.website-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+}
+
+.website-globe { font-size: 15px; color: var(--coral); }
+.website-url { font-size: 13.5px; font-weight: 600; color: white; flex: 1; letter-spacing: 0.2px; }
+.website-arrow {
+  width: 26px; height: 26px;
+  background: var(--coral);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 12px;
+}
+
+/* ── QR ── */
+.qr-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.qr-frame {
+  width: 130px; height: 130px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  position: relative;
+  box-shadow: 0 0 0 3px var(--coral), 0 0 0 6px rgba(232,80,58,0.2);
+}
+
+#qrcode canvas, #qrcode img { display: block; border-radius: 4px; }
+
+.scan-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  text-align: center;
+}
+
+/* ── FOOTER ── */
+.footer-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--teal), var(--coral), var(--gold), var(--coral), var(--teal));
+}
+
+@media print {
+  body { background: none; padding: 0; }
+  .poster { box-shadow: none; width: 210mm; min-height: 297mm; }
+}
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="grid-deco"></div>
+
+  <div class="content">
+
+    <!-- TOP STRIP -->
+    <div class="top-strip">
+      <div class="top-strip-label">Rowan University · ACM CSPR · Computer Science Presentation Series</div>
+      <div class="top-strip-dots">
+        <div class="top-strip-dot"></div>
+        <div class="top-strip-dot"></div>
+        <div class="top-strip-dot"></div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-eyebrow">
+        <div class="eyebrow-line"></div>
+        <div class="eyebrow-text">Your Research Journey Starts Here</div>
+      </div>
+      <div class="hero-title">
+        DON'T JUST
+        <span class="highlight">STUDY</span>
+        <span class="sub-line">Present. Connect. Lead.</span>
+      </div>
+      <p class="hero-tagline">
+        ACM CSPR is Rowan's premier student-run research series — where undergrads, grad students, and faculty come together every week to share ideas, publish work, and grow as researchers.
+      </p>
+    </div>
+
+    <!-- SPOTLIGHT BANNER -->
+    <div class="spotlight-banner">
+      <div class="spotlight-icon">🎤</div>
+      <div class="spotlight-text">
+        <div class="spotlight-headline">Step Into the Spotlight</div>
+        <div class="spotlight-body">Present once. Attend 8 more talks. Graduate the semester as a certified <strong>Research Ambassador</strong> — with an official certificate recognizing your research engagement.</div>
+      </div>
+      <div class="spotlight-badge">EARN YOUR<br>CERTIFICATE</div>
+    </div>
+
+    <!-- BENEFITS -->
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <div class="section-label-text">What You'll Get</div>
+      <div class="section-label-line"></div>
+    </div>
+
+    <div class="benefits">
+      <div class="benefit-card gold">
+        <span class="benefit-emoji">🏅</span>
+        <div class="benefit-title">Research Ambassador Certificate</div>
+        <div class="benefit-desc">Earn a recognized credential that proves your commitment to research culture — great for grad school apps &amp; resumes.</div>
+      </div>
+      <div class="benefit-card teal">
+        <span class="benefit-emoji">🌐</span>
+        <div class="benefit-title">Real Research Network</div>
+        <div class="benefit-desc">Build genuine connections with faculty, PhD students, and peers who are actively publishing and doing research.</div>
+      </div>
+      <div class="benefit-card coral">
+        <span class="benefit-emoji">🎙️</span>
+        <div class="benefit-title">Stage Time & Visibility</div>
+        <div class="benefit-desc">Practice presenting your ideas in front of a live, supportive audience — a skill that sets you apart in any career.</div>
+      </div>
+      <div class="benefit-card purple">
+        <span class="benefit-emoji">💡</span>
+        <div class="benefit-title">Hands-On Workshops</div>
+        <div class="benefit-desc">Master data analysis, machine learning tools, and research methods through practical, skill-building sessions.</div>
+      </div>
+      <div class="benefit-card white">
+        <span class="benefit-emoji">📄</span>
+        <div class="benefit-title">Paper Deep-Dives</div>
+        <div class="benefit-desc">Learn to read, critique, and discuss real papers from top CS venues — building your research intuition week by week.</div>
+      </div>
+      <div class="benefit-card teal">
+        <span class="benefit-emoji">🚀</span>
+        <div class="benefit-title">Launch Your Research</div>
+        <div class="benefit-desc">Got an idea or project? Get feedback from faculty and peers who can help you shape it into something publishable.</div>
+      </div>
+    </div>
+
+    <!-- AMBASSADOR PATH -->
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <div class="section-label-text">Your Path to Ambassador</div>
+      <div class="section-label-line"></div>
+    </div>
+
+    <div class="ambassador">
+      <div class="ambassador-header">
+        <div class="ambassador-icon">🎓</div>
+        <div>
+          <div class="ambassador-title">Research Ambassador Program</div>
+          <div class="ambassador-sub">Complete both requirements in one semester to earn your certificate</div>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-label">Show Up</div>
+          <div class="step-sub">Come to your first CSPR talk — no prep needed</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-label">Present Once</div>
+          <div class="step-sub">Share your project, idea, or a paper you love</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-label">Attend 8 Talks</div>
+          <div class="step-sub">Grow by listening to peers &amp; faculty research</div>
+        </div>
+        <div class="step step-final">
+          <div class="step-num">🏆</div>
+          <div class="step-label">Graduate as Ambassador</div>
+          <div class="step-sub">Receive your official certificate at semester end</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHAT YOU'LL GAIN -->
+    <div class="section-label">
+      <div class="section-label-line"></div>
+      <div class="section-label-text">Why It Matters</div>
+      <div class="section-label-line"></div>
+    </div>
+
+    <div class="gain-strip">
+      <div class="gain-item">
+        <div class="gain-check">✓</div>
+        <div class="gain-text"><strong>Boost Your Resume</strong>The Ambassador certificate is a tangible credential employers and grad schools notice.</div>
+      </div>
+      <div class="gain-item">
+        <div class="gain-check">✓</div>
+        <div class="gain-text"><strong>Find a Research Mentor</strong>Weekly talks connect you directly with faculty who are looking for motivated students.</div>
+      </div>
+      <div class="gain-item">
+        <div class="gain-check">✓</div>
+        <div class="gain-text"><strong>Build Confidence</strong>Presenting in a safe, encouraging space makes every future talk — job, interview, defense — feel easier.</div>
+      </div>
+      <div class="gain-item">
+        <div class="gain-check">✓</div>
+        <div class="gain-text"><strong>Stay Ahead of the Field</strong>Exposure to cutting-edge CS research every week keeps you sharp and inspired.</div>
+      </div>
+    </div>
+
+    <!-- BOTTOM ROW -->
+    <div class="bottom-row">
+      <div class="bottom-left">
+        <div class="meeting-inline">
+          <div class="meeting-chip">
+            <div class="meeting-chip-icon">📍</div>
+            <div>
+              <div class="meeting-chip-main">Room 302</div>
+              <div class="meeting-chip-sub">Robinson Hall</div>
+            </div>
+          </div>
+          <div class="meeting-chip">
+            <div class="meeting-chip-icon">🗓</div>
+            <div>
+              <div class="meeting-chip-main">Every Friday</div>
+              <div class="meeting-chip-sub">3:00 – 4:00 PM</div>
+            </div>
+          </div>
+        </div>
+        <div class="website-row">
+          <span class="website-globe">🌐</span>
+          <span class="website-url">csrp-rowan.github.io</span>
+          <div class="website-arrow">→</div>
+        </div>
+      </div>
+
+      <div class="qr-block">
+        <div class="qr-frame">
+          <div id="qrcode"></div>
+        </div>
+        <div class="scan-label">Scan to Visit</div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <div class="footer-bar"></div>
+</div>
+
+<script>
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://csrp-rowan.github.io",
+    width: 114,
+    height: 114,
+    colorDark: "#0b0f1a",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+</body>
+</html>

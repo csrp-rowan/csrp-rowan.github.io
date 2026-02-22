@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACM CSPR</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;700&family=IBM+Plex+Sans:wght@300;400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: #0a0a0a;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.poster {
+  width: 794px;
+  height: 1123px;
+  background: #04080f;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* ── SUBTLE GRID ── */
+.poster::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── GLOW ── */
+.glow {
+  position: absolute;
+  top: -180px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(0,162,255,0.08) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.glow-bot {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(0,162,255,0.05) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── ALL CONTENT ── */
+.c { position: relative; z-index: 1; }
+
+/* ── TOP BAR ── */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 52px 0;
+}
+
+.top-mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.top-dot-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.tdot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+}
+.tdot.on { background: #00a2ff; box-shadow: 0 0 6px #00a2ff; }
+
+/* ── HERO ── */
+.hero {
+  padding: 90px 52px 0;
+}
+
+.hero-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: #00a2ff;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-label::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 1px;
+  background: #00a2ff;
+  opacity: 0.6;
+}
+
+.hero-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 116px;
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -4px;
+  color: #ffffff;
+  margin-bottom: 0;
+}
+
+.hero-title .blue { color: #00a2ff; }
+
+.hero-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  margin: 40px 0 36px;
+  position: relative;
+}
+
+.hero-divider::after {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 120px; height: 1px;
+  background: #00a2ff;
+  box-shadow: 0 0 8px #00a2ff;
+}
+
+.hero-tagline {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.5;
+  max-width: 540px;
+  letter-spacing: -0.3px;
+}
+
+.hero-tagline strong {
+  color: rgba(255,255,255,0.9);
+  font-weight: 700;
+}
+
+/* ── STATS ROW ── */
+.stats {
+  display: flex;
+  gap: 0;
+  padding: 64px 52px 0;
+  border-top: none;
+}
+
+.stat {
+  flex: 1;
+  padding-right: 32px;
+  border-right: 1px solid rgba(255,255,255,0.05);
+  margin-right: 32px;
+}
+.stat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+
+.stat-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 42px;
+  font-weight: 700;
+  color: #00a2ff;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.3);
+  font-weight: 300;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── AMBASSADOR BLOCK ── */
+.amb {
+  margin: 64px 52px 0;
+  padding: 32px 36px;
+  border: 1px solid rgba(0,162,255,0.15);
+  border-radius: 2px;
+  background: rgba(0,162,255,0.03);
+  position: relative;
+}
+
+.amb::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 60px; height: 1px;
+  background: #00a2ff;
+  box-shadow: 0 0 10px #00a2ff;
+}
+
+.amb-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #00a2ff;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.amb-title {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+.amb-title em {
+  color: #00a2ff;
+  font-style: normal;
+}
+
+.formula {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.f-chip {
+  text-align: center;
+  padding: 10px 16px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.02);
+  border-radius: 2px;
+}
+
+.f-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 22px;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+
+.f-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 4px;
+}
+
+.f-op {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 20px;
+  color: rgba(255,255,255,0.12);
+}
+
+.f-result {
+  border-color: rgba(0,162,255,0.3);
+  background: rgba(0,162,255,0.07);
+}
+
+.f-result .f-num { color: #00a2ff; }
+.f-result .f-label { color: rgba(0,162,255,0.5); }
+
+/* ── BOTTOM ── */
+.bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 0 52px 40px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.meet-group { display: flex; flex-direction: column; gap: 10px; }
+
+.meet-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.meet-icon {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #00a2ff;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: 20px;
+  opacity: 0.6;
+}
+
+.meet-val {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.8);
+}
+
+.meet-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  margin-left: 4px;
+}
+
+/* QR */
+.qr-cluster { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+
+.qr-wrap {
+  width: 86px; height: 86px;
+  background: white;
+  padding: 7px;
+  border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+#qrcode canvas, #qrcode img { display: block; }
+
+.qr-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* bottom blue line */
+.blue-rule {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00a2ff 30%, #00a2ff 70%, transparent);
+  opacity: 0.5;
+}
+
+@media print {
+  body { background: none; padding: 0; }
+  .poster { box-shadow: none; }
+}
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="glow"></div>
+  <div class="glow-bot"></div>
+
+  <div class="c">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+      <div class="top-mono">Rowan University · ACM Chapter</div>
+      <div class="top-dot-row">
+        <div class="tdot on"></div>
+        <div class="tdot"></div>
+        <div class="tdot"></div>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-label">Computer Science Presentation Series</div>
+
+      <div class="hero-title">
+        ACM<br><span class="blue">CSPR</span>
+      </div>
+
+      <div class="hero-divider"></div>
+
+      <div class="hero-tagline">
+        A weekly stage for <strong>every student</strong> to present, connect, and grow as a researcher. No experience required —<strong> just curiosity.</strong>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">01×</div>
+        <div class="stat-label">Presentation<br>to give</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">08×</div>
+        <div class="stat-label">Talks<br>to attend</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">01</div>
+        <div class="stat-label">Certificate<br>you earn</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">Connections<br>you make</div>
+      </div>
+    </div>
+
+    <!-- AMBASSADOR -->
+    <div class="amb">
+      <div class="amb-tag">Research Ambassador Program</div>
+      <div class="amb-title">Present once. Attend 8 talks.<br><em>Graduate as a Research Ambassador.</em></div>
+      <div class="formula">
+        <div class="f-chip">
+          <div class="f-num">1×</div>
+          <div class="f-label">Present</div>
+        </div>
+        <div class="f-op">+</div>
+        <div class="f-chip">
+          <div class="f-num">8×</div>
+          <div class="f-label">Attend</div>
+        </div>
+        <div class="f-op">=</div>
+        <div class="f-chip f-result">
+          <div class="f-num">🎓</div>
+          <div class="f-label">Ambassador</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottom">
+    <div class="meet-group">
+      <div class="meet-row">
+        <div class="meet-icon">LOC</div>
+        <div class="meet-val">Room 302 <span class="meet-sub">Robinson Hall</span></div>
+      </div>
+      <div class="meet-row">
+        <div class="meet-icon">DAY</div>
+        <div class="meet-val">Every Friday <span class="meet-sub">3:00 – 4:00 PM</span></div>
+      </div>
+      <div class="meet-row">
+        <div class="meet-icon">WEB</div>
+        <div class="meet-val" style="color: #00a2ff; font-size:13px;">csrp-rowan.github.io</div>
+      </div>
+    </div>
+
+    <div class="qr-cluster">
+      <div class="qr-wrap"><div id="qrcode"></div></div>
+      <div class="qr-label">Scan to Visit</div>
+    </div>
+  </div>
+
+  <div class="blue-rule"></div>
+</div>
+
+<script>
+  new QRCode(document.getElementById("qrcode"), {
+    text: "https://csrp-rowan.github.io",
+    width: 72,
+    height: 72,
+    colorDark: "#04080f",
+    colorLight: "#ffffff",
+    correctLevel: QRCode.CorrectLevel.H
+  });
+</script>
+</body>
+</html>
