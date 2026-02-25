@@ -108,7 +108,7 @@ en: &DEFAULT_EN
         icon: "fas fa-microphone"
         color: "#F59E0B"
       - year: "Feb 27, 2026"
-        title: "TBA"
+        title: "Partial Recovery & Memorability in Self-Sovereign Digital Identity"
         desc: "**Presenter:** Sushanth Ambati"
         icon: "fas fa-microphone"
         color: "#F59E0B"
