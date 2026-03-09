@@ -118,7 +118,7 @@ en: &DEFAULT_EN
         icon: "fas fa-vr-cardboard"
         color: "#7C3AED"
       - year: "Mar 13, 2026"
-        title: "TBA"
+        title: "Leveraging Generative Artificial Intelligence in Computer Science Education"
         desc: "**Presenter:** Drew Dillman"
         icon: "fas fa-microphone"
         color: "#F59E0B"
