@@ -128,7 +128,7 @@ en: &DEFAULT_EN
         icon: "fas fa-umbrella-beach"
         color: "#0EA5E9"
       - year: "Mar 27, 2026"
-        title: "TBA"
+        title: "UnICom: A Universally High-Performant I/O Completion Mechanism for Modern Computer Systems"
         desc: "**Presenter:** Jonah Rodriguez"
         icon: "fas fa-microphone"
         color: "#F59E0B"
